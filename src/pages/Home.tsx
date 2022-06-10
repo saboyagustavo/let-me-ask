@@ -1,4 +1,6 @@
-import illustrationImg from '../assets/images/illustration.svg';
+import { BannerAside } from '../components/BannerAside';
+import { Button } from '../components/Button';
+
 import logoImg from '../assets/images/logo.svg';
 import googleIcon from '../assets/images/google-icon.svg';
 import loginIcon from '../assets/images/login-icon.svg';
@@ -7,34 +9,25 @@ import '../styles/home.scss';
 
 export function Home() {
   return (
-    <div id="home-page">
-      <aside>
-        <img src={illustrationImg} alt='Ilustração de cartões de perguntas e respostas' />
-        <strong>Crie salas interativas <br/>de Q&amp;A ao vivo.</strong>
-        <p>A audiência define a prioridade e <br/>você tira as dúvidas em tempo real</p>
-      </aside>
-
+    <div id='home-page'>
+      <BannerAside />
       <main>
-        <div className="main-content">
-          <img id="logo" src={logoImg} alt='Letmeask' />
+        <div className='main-content'>
+          <img id='logo' src={logoImg} alt='Letmeask' draggable='false' />
 
-          <button className="create-room">
-            <img src={googleIcon} alt='Logo do Google' />
+          <Button type='button' className='sign-in-button'>
+            <img src={googleIcon} alt='Logo do Google' draggable='false' />
             Crie sua sala com o Google
-          </button>
+          </Button>
 
-          <div className="separator">ou entre em uma sala</div>
+          <div className='separator'>ou entre em uma sala</div>
 
           <form>
-            <input
-              type='text'
-              placeholder='Digite o código da sala'
-              value=''
-            />
-            <button>
-              <img src={loginIcon} alt='Seta para direita indicando a entrada a uma sala' />
+            <input type='text' placeholder='Digite o código da sala' value='' />
+            <Button type='submit'>
+              <img src={loginIcon} alt='Seta para direita indicando a entrada a uma sala' draggable='false' />
               Entrar na sala
-            </button>
+            </Button>
           </form>
         </div>
       </main>

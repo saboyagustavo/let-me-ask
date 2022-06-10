@@ -1,0 +1,26 @@
+.banner-aside {
+  background: var(--purpleGradient);
+  color: var(--whiteShape);
+  
+  display: flex;
+  flex-direction: column;
+  justify-content: center;  
+  padding: 7.5rem 2.5rem; 
+  
+  img {
+    max-width: 18rem;
+  }
+  
+  strong {
+    font: 700 2.25rem 'Poppins', sans-serif;
+    line-height: 2.225rem;
+    font-size: 1.5rem;
+    color: var(--whiteBg);
+  }
+  
+  p {
+    margin-top: 1rem;
+    line-height: 1.5rem;
+    filter: opacity(0.6);
+  }
+}

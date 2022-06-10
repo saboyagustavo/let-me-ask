@@ -5,31 +5,6 @@
   
   aside {
     flex: 7;
-
-    background: var(--purpleGradient);
-    color: var(--whiteShape);
-    
-    display: flex;
-    flex-direction: column;
-    justify-content: center;  
-    padding: 7.5rem 2.5rem; 
-
-    img {
-      max-width: 18rem;
-    }
-
-    strong {
-      font: 700 2.25rem 'Poppins', sans-serif;
-      line-height: 2.225rem;
-      font-size: 1.5rem;
-      color: var(--whiteBg);
-    }
-
-    p {
-      margin-top: 1rem;
-      line-height: 1.5rem;
-      filter: opacity(0.6);
-    }
   }
 
   main {
@@ -58,33 +33,10 @@
       max-width: 9.75rem;
     }
 
-    .create-room {
+    .sign-in-button {
       background-color: var(--redMedium);
-
+      padding: 0 1rem;
       margin-top: 4rem;
-      height: 3.125rem;
-      
-      border-radius: 8px;
-      font-weight: 500px;
-      color: var(--whiteShape);
-
-      display: flex;
-      justify-content: center;
-      align-items: center;
-
-      transition: filter 0.2s;
-
-      > img {
-        margin-right: 0.5rem;
-      }
-
-      &:hover {
-        filter: brightness(1.1);
-      }
-      
-      &:active {
-        filter: none;
-      }
     }
 
     .separator {
