@@ -15,7 +15,7 @@ export function Home() {
         <div className='main-content'>
           <img id='logo' src={logoImg} alt='Letmeask' draggable='false' />
 
-          <Button type='button' className='sign-in-button'>
+          <Button type='button' className='google-sign-in-button'>
             <img src={googleIcon} alt='Logo do Google' draggable='false' />
             Crie sua sala com o Google
           </Button>

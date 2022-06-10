@@ -33,10 +33,17 @@
       max-width: 9.75rem;
     }
 
-    .sign-in-button {
-      background-color: var(--redMedium);
+    .google-sign-in-button {
+      background-color: var(--whiteShape);
+      border: 1px solid var(--grayLight);
+      color: var(--black);
       padding: 0 1rem;
       margin-top: 4rem;
+
+      &:hover { 
+        filter: none;
+        border: 1px solid var(--purpleMedium);
+      }
     }
 
     .separator {
