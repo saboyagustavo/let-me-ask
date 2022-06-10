@@ -3,25 +3,27 @@ import logoImg from '../assets/images/logo.svg';
 import googleIcon from '../assets/images/google-icon.svg';
 import loginIcon from '../assets/images/login-icon.svg';
 
+import '../styles/home.scss';
+
 export function Home() {
   return (
-    <div>
+    <div id="home-page">
       <aside>
         <img src={illustrationImg} alt='Ilustração de cartões de perguntas e respostas' />
-        <strong>Crie salas interativas de Q&amp;A ao vivo.</strong>
-        <p>A audiência define a prioridade e você tira as dúvidas em tempo real</p>
+        <strong>Crie salas interativas <br/>de Q&amp;A ao vivo.</strong>
+        <p>A audiência define a prioridade e <br/>você tira as dúvidas em tempo real</p>
       </aside>
 
       <main>
-        <div>
-          <img src={logoImg} alt='Letmeask' />
+        <div className="main-content">
+          <img id="logo" src={logoImg} alt='Letmeask' />
 
-          <button>
+          <button className="create-room">
             <img src={googleIcon} alt='Logo do Google' />
             Crie sua sala com o Google
           </button>
 
-          <div>ou entre em uma sala</div>
+          <div className="separator">ou entre em uma sala</div>
 
           <form>
             <input
