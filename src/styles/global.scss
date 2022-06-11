@@ -64,6 +64,20 @@ button {
 a {
   text-decoration: none;
   color: inherit;
+
+  transition: filter 0.2s;
+  
+  &:hover {
+    filter: brightness(1.1);
+  }
+
+  &:active {
+    filter: none;
+  }
+
+  &:visited {
+    filter: brightness(0.8);
+  }
 }
 
 button {

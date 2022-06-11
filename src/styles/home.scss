@@ -1,4 +1,4 @@
-#home-page {
+#home-page, #new-room-page {
   display: flex;
   align-items: stretch;
   height: 100vh;
@@ -31,6 +31,13 @@
     img#logo {
       align-self: center;
       max-width: 9.75rem;
+    }
+
+    h2 {
+      margin: 4rem 0 1.5rem 0;
+      font: 500 1.5rem 'Poppins', sans-serif; 
+      font-size: 1.5rem;
+      font-weight: bold;
     }
 
     .google-sign-in-button {
@@ -103,6 +110,16 @@
         width: 100%;
       }
       
+    }
+
+    .join-room-redirect {
+      margin-top: 1rem;
+      font-size: 0.875rem;
+      color: var(--grayMedium);
+
+      a {
+        color: var(--pinkMedium);
+      }
     }
   }
 }
