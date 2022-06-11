@@ -4,6 +4,7 @@ import { Button } from "../components/Button";
 import logoImg from '../assets/images/logo.svg';
 
 import '../styles/home.scss';
+import { Link } from "react-router-dom";
 
 export function NewRoom() {
   return (
@@ -23,7 +24,7 @@ export function NewRoom() {
 
           <p className='join-room-redirect'>
             Quer entrar em uma sala já existente?&nbsp;
-            <a href='#'>Clique aqui</a>
+            <Link to='/'>Clique aqui</Link>
           </p>
         </div>
       </main>

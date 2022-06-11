@@ -1,3 +1,4 @@
+import { useNavigate } from 'react-router-dom';
 import { BannerAside } from '../components/BannerAside';
 import { Button } from '../components/Button';
 
@@ -8,6 +9,12 @@ import loginIcon from '../assets/images/login-icon.svg';
 import '../styles/home.scss';
 
 export function Home() {
+  const navigate = useNavigate();
+
+  function navigateToNewRoom() {
+    navigate('/rooms/new');
+  }
+
   return (
     <div id='home-page'>
       <BannerAside />
@@ -15,7 +22,7 @@ export function Home() {
         <div className='main-content'>
           <img id='logo' src={logoImg} alt='Letmeask' draggable='false' />
 
-          <Button type='button' className='google-sign-in-button'>
+          <Button type='button' className='google-sign-in-button' onClick={navigateToNewRoom}>
             <img src={googleIcon} alt='Logo do Google' draggable='false' />
             Crie sua sala com o Google
           </Button>
