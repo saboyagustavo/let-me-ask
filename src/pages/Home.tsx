@@ -7,11 +7,17 @@ import googleIcon from '../assets/images/google-icon.svg';
 import loginIcon from '../assets/images/login-icon.svg';
 
 import '../styles/home.scss';
+import { useAuth } from '../hooks/useAuth';
 
 export function Home() {
   const navigate = useNavigate();
+  const { signed, Login } = useAuth();
 
-  function navigateToNewRoom() {
+  async function navigateToNewRoom() {
+    if (!signed) { 
+      await Login();
+    }
+
     navigate('/rooms/new');
   }
 

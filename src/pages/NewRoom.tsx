@@ -5,8 +5,10 @@ import logoImg from '../assets/images/logo.svg';
 
 import '../styles/home.scss';
 import { Link } from "react-router-dom";
+// import { useAuth } from "../hooks/useAuth";
 
 export function NewRoom() {
+
   return (
     <div id='new-room-page'>
       <BannerAside />
@@ -14,7 +16,6 @@ export function NewRoom() {
       <main>
         <div className='main-content'>
           <img id='logo' src={logoImg} alt='Letmeask' draggable='false' />
-
           <h2>Crie uma nova sala</h2>
 
           <form>
