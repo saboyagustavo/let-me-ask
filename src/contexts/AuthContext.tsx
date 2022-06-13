@@ -1,9 +1,10 @@
 import { createContext, useState, useEffect, ReactNode } from 'react';
 import { firebaseApp } from '../services/firebase';
 import { getAuth, signInWithPopup, signOut, GoogleAuthProvider } from 'firebase/auth';
+import { toast } from 'react-toastify';
+import { User } from 'firebase/auth'
 
-
-type User = {
+type AuthenticatedUser = {
   id: string;
   name: string;
   avatar: string;
@@ -11,7 +12,7 @@ type User = {
 
 interface AuthContextData {
   signed: boolean;
-  user: User | null;
+  user: AuthenticatedUser | undefined;
   Login(): Promise<void>;
   Logout(): void;
 }
@@ -23,22 +24,23 @@ interface AuthProviderProps {
 export const AuthContext = createContext({} as AuthContextData);
 
 export const AuthContextProvider = (props: AuthProviderProps) => {
-  const [user, setUser] = useState<User | null>(null);
+  const [loggedUser, setLoggedUser] = useState<AuthenticatedUser | undefined>(undefined);
   const auth = getAuth(firebaseApp);
+  
+  function authenticate(usr: User | undefined) {
+    try {
+      if (usr) {
+        const { displayName, photoURL, uid } = usr;
+        if (!displayName) {
+          throw new Error(
+            'Informações de nome de usuário da sua conta Google estão inválidas ou incompletas'
+          );
+        }
 
-  useEffect(() => {
-    const storagedUser = sessionStorage.getItem('@App:user');
-    if (storagedUser) {
-      setUser(JSON.parse(storagedUser));
-      return;
-    }
-
-    const unsubscribe = auth.onAuthStateChanged(user => {
-      if (user) {
-        const { displayName, photoURL, uid } = user;
-
-        if (!displayName || !photoURL) {
-          throw new Error('Missing information from Google Account');
+        if (!photoURL) {
+          throw new Error(
+            'Informações da foto de perfil do usuário da sua conta Google estão inválidas ou incompletas'
+          );
         }
 
         const authenticatedUser = {
@@ -47,9 +49,33 @@ export const AuthContextProvider = (props: AuthProviderProps) => {
           avatar: photoURL,
         };
 
-        setUser(authenticatedUser);
+        setLoggedUser(authenticatedUser);
         sessionStorage.setItem('@App:user', JSON.stringify(authenticatedUser));
+      } else {
+        throw new Error('Desculpe, houve uma falha na autenticação');
       }
+    } catch (error: any) {
+      toast.error(error.message, {
+        position: 'top-right',
+        autoClose: 5000,
+        hideProgressBar: false,
+        closeOnClick: true,
+        pauseOnHover: true,
+        draggable: true,
+        progress: undefined,
+      });
+    }
+  }
+
+  useEffect(() => {
+    const storagedUser = sessionStorage.getItem('@App:user');
+    if (storagedUser) {
+      setLoggedUser(JSON.parse(storagedUser));
+      return;
+    }
+
+    const unsubscribe = auth.onAuthStateChanged(user => {
+      authenticate(user!);
     });
     
     return () => {
@@ -58,43 +84,19 @@ export const AuthContextProvider = (props: AuthProviderProps) => {
   }, [auth]);
 
   async function Login() {
-    if (user) {
-      return;
-    }
-
-    try {
-      const provider = new GoogleAuthProvider();
-      const result = await signInWithPopup(auth, provider);
-
-      if (result.user) {
-        const { displayName, photoURL, uid } = result.user;
-
-        if (!displayName || !photoURL) {
-          throw new Error('Missing information from Google Account');
-        }
-
-        const authenticatedUser = {
-          id: uid,
-          name: displayName,
-          avatar: photoURL,
-        };
-
-        setUser(authenticatedUser);
-        sessionStorage.setItem('@App:user', JSON.stringify(authenticatedUser));
-      }
-    } catch (err) {
-      console.log(err);
-    }
+    const provider = new GoogleAuthProvider();
+    const { user } = await signInWithPopup(auth, provider);
+    authenticate(user);
   }
 
   async function Logout() {
-    setUser(null);
+    setLoggedUser(undefined);
     sessionStorage.clear();
     await signOut(auth);
   }
 
   return (
-    <AuthContext.Provider value={{ signed: Boolean(user), user, Login, Logout }}>
+    <AuthContext.Provider value={{ signed: Boolean(loggedUser), user: loggedUser, Login, Logout }}>
       {props.children}
     </AuthContext.Provider>
   );

@@ -1,5 +1,6 @@
 import { FormEvent, useState } from 'react';
 import { Link, useNavigate } from 'react-router-dom';
+import { toast } from 'react-toastify';
 import { ref, database, push } from '../services/firebase';
 import { useAuth } from '../hooks/useAuth';
 import { BannerAside } from '../components/BannerAside';
@@ -15,28 +16,41 @@ export function NewRoom() {
 
   async function handleCreateNewRoom(evt: FormEvent) {
     evt.preventDefault();
-    
-    if (!signed) {
-      navigate('/');
-      return;
-    }
-    
-    if (newRoom.trim() === '') {
-      return;
-    }
+    try {
 
-    const roomRef = ref(database, 'rooms');
-    
-    const firebaseRoom = await push(roomRef, {
-      title: newRoom,
-      authorId: user?.id
-    });
-
-    navigate(`/rooms/${firebaseRoom.key}`);
+      if (!signed) {
+        navigate('/');
+        throw new Error('Para criar uma nova sala você precisa estar logado');
+      }
+      
+      if (newRoom.trim() === '') {
+        return;
+      }
+      
+      const roomRef = ref(database, 'rooms');
+      
+      const firebaseRoom = await push(roomRef, {
+        title: newRoom,
+        authorId: user?.id
+      });
+      
+      navigate(`/rooms/${firebaseRoom.key}`);
+    } catch (error: any) {
+      toast.error(error.message, {
+        position: 'top-right',
+        autoClose: 5000,
+        hideProgressBar: false,
+        closeOnClick: true,
+        pauseOnHover: true,
+        draggable: true,
+        progress: undefined,
+      });
+    }
   } 
   
 
   return (
+  <>
     <div id='new-room-page'>
       <BannerAside />
 
@@ -62,5 +76,6 @@ export function NewRoom() {
         </div>
       </main>
     </div>
+  </>
   );
 }
