@@ -1,5 +1,5 @@
 import { initializeApp } from 'firebase/app';
-import { ref, push, getDatabase } from 'firebase/database';
+import { getDatabase } from 'firebase/database';
 
 import 'firebase/auth';
 import 'firebase/database';
@@ -21,6 +21,4 @@ const database = getDatabase(firebaseApp);
 export {
   firebaseApp,
   database,
-  ref,
-  push,
 };

@@ -1,7 +1,10 @@
 import { FormEvent, useState } from 'react';
 import { Link, useNavigate } from 'react-router-dom';
 import { toast } from 'react-toastify';
-import { ref, database, push } from '../services/firebase';
+
+import { database } from '../services/firebase';
+import { ref, push } from 'firebase/database';
+
 import { useAuth } from '../hooks/useAuth';
 import { BannerAside } from '../components/BannerAside';
 import { Button } from '../components/Button';
@@ -38,7 +41,7 @@ export function NewRoom() {
     } catch (error: any) {
       toast.error(error.message, {
         position: 'top-right',
-        autoClose: 5000,
+        autoClose: 3000,
         hideProgressBar: false,
         closeOnClick: true,
         pauseOnHover: true,
@@ -47,7 +50,6 @@ export function NewRoom() {
       });
     }
   } 
-  
 
   return (
   <>
