@@ -1,6 +1,7 @@
 import { Button } from "../components/Button";
 
 import logoImg from '../assets/images/logo.svg';
+import { RoomCode } from "../components/RoomCode";
 
 export function Room() {
   return (
@@ -9,10 +10,7 @@ export function Room() {
         <div className="header-content">
           <img src={logoImg} alt='Letmeask' />
 
-          <Button>
-            <img src='' alt='' />
-            codigo da sala
-          </Button>
+          <RoomCode code="codigo da sala"/>
         </div>
       </header>
 
